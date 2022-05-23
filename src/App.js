@@ -49,8 +49,7 @@ function App() {
     }
     
     // Clicking the Animal Option will set the final answer, close the dropdown, and update the input text to match
-    const onClick = (event) => {
-        const finalAnswer = animals.find((animal => animal === event.target.dataset.value));
+    const onClick = (event, finalAnswer) => {
         changeOpen(false);
         changeFinalResult((
             <div className='final'>{finalAnswer} <FontAwesomeIcon icon={finalAnswer} /></div>
@@ -62,7 +61,7 @@ function App() {
     const renderAnimalOptions = () => {
         return animals.map((animal) => {
             if(animal.includes(inputVal)) {
-                return (<AnimalOption animal={animal} onClick={(animal) => onClick({target: { dataset: { value: animal }}})} key={animal} />);
+                return (<AnimalOption animal={animal} onClick={(event) => onClick(event, animal)} key={animal} />);
             } else {
                 return null;
             }
