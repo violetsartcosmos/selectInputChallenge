@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faCat, faDog, faDragon, faFish, faCow, faHorse, faSpider, faCaretDown } from "@fortawesome/free-solid-svg-icons";
 
+//Dataset for options
 const animals = [
     "cat",
     "dog",
@@ -14,10 +15,11 @@ const animals = [
     "horse",
     "spider",
 ];
-
+// Setup to use fontawesome icons
 library.add( faCat, faDog, faDragon, faFish, faCow, faHorse, faSpider, faCaretDown);
 
-function Option ({animal, onClick}) {
+// Animal Option - Each option for the dropdown can be clicked, has a hover animation and icon from animals list
+function AnimalOption ({animal, onClick}) {
     return (
         <li
             onClick={onClick}
@@ -29,35 +31,38 @@ function Option ({animal, onClick}) {
     );
 }
 
+// Application that displays an input structured to look like a dropdown with searchable options
 function App() {
     const [inputVal, setInputVal] = useState("");
     const [isOpen, changeOpen] = useState(false);
     const [finalResult, changeFinalResult] = useState("");
 
-
+    // On change of input value, set the state to change the results and reset the final result
     const onChange = (event) => {
         setInputVal(event.target.value);
         if(finalResult) changeFinalResult("");
     }
 
+    // Clicking the input will also set the dropdown to open if it isn't already, like initial
     const inputOnClick = (event) => {
         if(!isOpen) changeOpen(true);
     }
     
+    // Clicking the Animal Option will set the final answer, close the dropdown, and update the input text to match
     const onClick = (event) => {
-        console.log('element', event.target.dataset);
-        const final = animals.find((animal => animal === event.target.dataset.value));
+        const finalAnswer = animals.find((animal => animal === event.target.dataset.value));
         changeOpen(false);
         changeFinalResult((
-            <div className='final'>{final} <FontAwesomeIcon icon={final} /></div>
+            <div className='final'>{finalAnswer} <FontAwesomeIcon icon={finalAnswer} /></div>
         ));
-        setInputVal(final);
+        setInputVal(finalAnswer);
     }
 
-    const renderOptions = () => {
+    // Renders the animal options to include only the options that match or contain the input value string. For ex. "C" will show cat animal option
+    const renderAnimalOptions = () => {
         return animals.map((animal) => {
             if(animal.includes(inputVal)) {
-                return (<Option animal={animal} onClick={(animal) => onClick(animal)} key={animal} />);
+                return (<AnimalOption animal={animal} onClick={(animal) => onClick({target: { dataset: { value: animal }}})} key={animal} />);
             } else {
                 return null;
             }
@@ -77,8 +82,8 @@ function App() {
                 <FontAwesomeIcon icon="caret-down" className='caret'/>
             </div>
 
-            <ul className={classnames({'open': isOpen || finalResult})}>
-                {isOpen && renderOptions()}
+            <ul className={classnames({'open': isOpen})}>
+                {isOpen && renderAnimalOptions()}
             </ul>
 		</>
 	);
