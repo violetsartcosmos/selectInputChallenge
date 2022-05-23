@@ -1,0 +1,89 @@
+.input-holder {
+    position: relative;
+    max-width: 17em;
+}
+input {
+    min-width: 100px;
+    background-color: lightgrey;
+    width: 16em;
+    font-size: 16px;
+    font-size: max(16px, 1em);
+    font-family: inherit;
+    padding: 0.25em 0.5em;
+    background-color: #fff;
+    border: 2px solid blueviolet;
+    border-radius: 4px;
+}
+
+.caret {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+ul {
+    visibility: hidden;
+    opacity: 0;
+    list-style-type: none;
+    margin: 0;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+    padding-inline-start: 0;
+    max-width: 17em;
+    // transition: visibility 0s, ease 0s opacity 0.5s;
+}
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Firefox < 16 */
+@-moz-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Internet Explorer */
+@-ms-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Opera < 12.1 */
+@-o-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+.open {
+    visibility: visible;
+    opacity: 1;
+
+    li {
+        padding-right: 1em;
+        animation: fadein 2s;
+        -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
+        -moz-animation: fadein 2s; /* Firefox < 16 */
+        -ms-animation: fadein 2s; /* Internet Explorer */
+        -o-animation: fadein 2s; /* Opera < 12.1 */
+    }
+
+    li:hover {
+        background-color: rgb(176, 241, 241);
+    }
+}
+
+.final {
+    position: absolute;
+    top: 5px;
+    left: 10px;
+}
